@@ -20,7 +20,12 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
-        return new ResponseEntity<>(usuarioService.listarUsuarios(), HttpStatus.OK);
+        try {
+            List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
+            return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")
