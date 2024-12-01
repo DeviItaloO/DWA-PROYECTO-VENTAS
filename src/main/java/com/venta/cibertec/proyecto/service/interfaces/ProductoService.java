@@ -7,7 +7,7 @@ public interface ProductoService {
 
     List<ProductoDTO> listarProductos();
     ProductoDTO obtenerProductoPorId(int id);
-    void crearProducto(ProductoDTO productoDTO);
-    void actualizarProducto(int id, ProductoDTO productoDTO);
-    void eliminarProducto(int id);
+    boolean crearProducto(ProductoDTO productoDTO);
+    boolean actualizarProducto(int id, ProductoDTO productoDTO);
+    boolean eliminarProducto(int id);
 }

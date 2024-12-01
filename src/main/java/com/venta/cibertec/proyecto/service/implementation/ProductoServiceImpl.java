@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
+
     @Override
     public List<ProductoDTO> listarProductos() {
         return List.of();
@@ -19,17 +20,17 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public void crearProducto(ProductoDTO productoDTO) {
-
+    public boolean crearProducto(ProductoDTO productoDTO) {
+        return false;
     }
 
     @Override
-    public void actualizarProducto(int id, ProductoDTO productoDTO) {
-
+    public boolean actualizarProducto(int id, ProductoDTO productoDTO) {
+        return false;
     }
 
     @Override
-    public void eliminarProducto(int id) {
-
+    public boolean eliminarProducto(int id) {
+        return false;
     }
 }

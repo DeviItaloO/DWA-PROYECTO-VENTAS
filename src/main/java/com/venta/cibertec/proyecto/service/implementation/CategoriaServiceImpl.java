@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
+
     @Override
     public List<CategoriaDTO> listarCategorias() {
         return List.of();
@@ -19,17 +20,17 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public void crearCategoria(CategoriaDTO categoriaDTO) {
-
+    public boolean crearCategoria(CategoriaDTO categoriaDTO) {
+        return false;
     }
 
     @Override
-    public void actualizarCategoria(int id, CategoriaDTO categoriaDTO) {
-
+    public boolean actualizarCategoria(int id, CategoriaDTO categoriaDTO) {
+        return false;
     }
 
     @Override
-    public void eliminarCategoria(int id) {
-
+    public boolean eliminarCategoria(int id) {
+        return false;
     }
 }
