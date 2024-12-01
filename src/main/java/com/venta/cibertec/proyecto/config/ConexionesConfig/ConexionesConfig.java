@@ -11,8 +11,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class ConexionesConfig {
 
-    @Value("${DB_WORLD_URL}")
-    private String dbWordUrl;
+    @Value("${DB_VENTAS_URL}")
+    private String dbVentasUrl;
     @Value("${DB_WORLD_USER}")
     private String dbWordUser;
     @Value("${DB_WORLD_PASS}")
@@ -25,7 +25,7 @@ public class ConexionesConfig {
 
         HikariConfig hikariConfig = new HikariConfig();
         // mi conexion
-        hikariConfig.setJdbcUrl(dbWordUrl);
+        hikariConfig.setJdbcUrl(dbVentasUrl);
         hikariConfig.setUsername(dbWordUser);
         hikariConfig.setPassword(dbWordPass);
         hikariConfig.setDriverClassName(dbWordDriver);
