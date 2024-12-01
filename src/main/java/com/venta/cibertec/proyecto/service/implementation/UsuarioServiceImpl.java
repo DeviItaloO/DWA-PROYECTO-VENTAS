@@ -40,21 +40,26 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void crearUsuario(UsuarioDTO usuarioDTO) {
+    public boolean crearUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
         usuarioRepository.save(usuario);
+        return true;
     }
 
     @Override
-    public void actualizarUsuario(int id, UsuarioDTO usuarioDTO) {
+    public boolean actualizarUsuario(int id, UsuarioDTO usuarioDTO) {
             Usuario usuario = usuarioRepository.findById(id)
                     .orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
             modelMapper.map(usuarioDTO, usuario);
             usuarioRepository.save(usuario);
+            return true;
     }
 
     @Override
-    public void eliminarUsuario(int id) {
+    public boolean eliminarUsuario(int id) {
+        if(!usuarioRepository.existsById(id))
+            throw new RuntimeException("Usuario no encontrado");
         usuarioRepository.deleteById(id);
+        return true;
     }
 }

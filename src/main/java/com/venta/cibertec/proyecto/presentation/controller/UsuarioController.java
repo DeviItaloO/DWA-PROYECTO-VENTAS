@@ -30,24 +30,58 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable Integer id) {
-        return new ResponseEntity<>(usuarioService.obtenerUsuarioPorId(id), HttpStatus.OK);
+        try {
+            UsuarioDTO usuario = usuarioService.obtenerUsuarioPorId(id);
+            if (usuario != null) {
+                return new ResponseEntity<>(usuario, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PostMapping
     public ResponseEntity<String> crearUsuario(@RequestBody UsuarioDTO usuarioDTO){
-        usuarioService.crearUsuario(usuarioDTO);
-        return new ResponseEntity<>("Usuario creado exitosamente", HttpStatus.CREATED);
+        try {
+            boolean respuesta = usuarioService.crearUsuario(usuarioDTO);
+            if (respuesta){
+                return new ResponseEntity<>("Usuario creado correctamente", HttpStatus.CREATED);
+            }else{
+                return new ResponseEntity<>("Usuario no existe", HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al crear el usuario" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO){
-        usuarioService.actualizarUsuario(id, usuarioDTO);
-        return new ResponseEntity<>("Usuario actualizado exitosamente", HttpStatus.OK);
+        try {
+            boolean respuesta = usuarioService.actualizarUsuario(id, usuarioDTO);
+            if (respuesta){
+                return new ResponseEntity<>("Usuario actualizado correctamente", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("Usuario no existe", HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id){
-        usuarioService.eliminarUsuario(id);
-        return new ResponseEntity<>("Usuario eliminado exitosamente", HttpStatus.OK);
+        try {
+            boolean respuesta = usuarioService.eliminarUsuario(id);
+            if (respuesta){
+                return new ResponseEntity<>("Usuario eliminado correctamente", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

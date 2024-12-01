@@ -8,7 +8,7 @@ public interface UsuarioService {
 
     List<UsuarioDTO> listarUsuarios();
     UsuarioDTO obtenerUsuarioPorId(int id);
-    void crearUsuario(UsuarioDTO usuarioDTO);
-    void actualizarUsuario(int id, UsuarioDTO usuarioDTO);
-    void eliminarUsuario(int id);
+    boolean  crearUsuario(UsuarioDTO usuarioDTO);
+    boolean  actualizarUsuario(int id, UsuarioDTO usuarioDTO);
+    boolean  eliminarUsuario(int id);
 }
