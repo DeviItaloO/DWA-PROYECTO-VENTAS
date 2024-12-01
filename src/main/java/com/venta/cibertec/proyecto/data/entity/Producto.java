@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
-@Table(name="Categoria")
+@Table(name="Producto")
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +21,29 @@ public class Producto {
     @Column(nullable = false, length = 100)
     private String descripcion;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private double precio;
+    @Column(nullable = false)
+    private Double precio;
 
     @Column(nullable = false)
     private int stock;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime fechaCreacion;
+
+    @Column(nullable = true)
+    private LocalDateTime fechaActualizacion;
+
     @ManyToOne
-    @JoinColumn(name = "IdCategoria", nullable = true)
+    @JoinColumn(name = "idCategoria", nullable = true)
     private Categoria categoria;
 
-    @Column(name = "FechaCreacion", updatable = false)
-    private String fechaCreacion;
+    @PrePersist
+    private void prePersist() {
+        this.fechaCreacion = LocalDateTime.now();
+    }
 
-    @Column(name = "FechaActualizacion")
-    private String fechaActualizacion;
+    @PreUpdate
+    private void preUpdate() {
+        this.fechaActualizacion = LocalDateTime.now();
+    }
 }

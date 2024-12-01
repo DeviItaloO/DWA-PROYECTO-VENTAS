@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -28,8 +29,10 @@ public class Usuario {
     private String rol;
 
     @Column(nullable = false, updatable = false)
-    private String fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Producto> productos;
+    @PrePersist
+    private void prePersist() {
+        this.fechaCreacion = LocalDateTime.now();
+    }
 }
