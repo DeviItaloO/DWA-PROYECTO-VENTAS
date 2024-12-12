@@ -2,6 +2,8 @@ package com.venta.cibertec.proyecto.config.AppConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
@@ -29,18 +33,18 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-        //return NoOpPasswordEncoder.getInstance();
+        //return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
-    @Bean
+    /*@Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
 
         UserDetails user = User.withUsername("admin")
-                .password(passwordEncoder.encode(""))
+                .password(passwordEncoder.encode("password"))
                 .roles("ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user);
-    }
+    }*/
 }
