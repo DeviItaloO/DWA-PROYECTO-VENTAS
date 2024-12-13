@@ -20,7 +20,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
         try {
             List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
@@ -30,7 +30,7 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/search/{id}")
     public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable Integer id) {
         try {
             UsuarioDTO usuario = usuarioService.obtenerUsuarioPorId(id);
@@ -45,7 +45,7 @@ public class UsuarioController {
 
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> crearUsuario(@RequestBody UsuarioDTO usuarioDTO){
         try {
             boolean respuesta = usuarioService.crearUsuario(usuarioDTO);
@@ -59,7 +59,7 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO){
         try {
             boolean respuesta = usuarioService.actualizarUsuario(id, usuarioDTO);
@@ -73,7 +73,7 @@ public class UsuarioController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id){
         try {
             boolean respuesta = usuarioService.eliminarUsuario(id);
