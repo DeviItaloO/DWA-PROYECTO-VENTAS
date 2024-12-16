@@ -52,7 +52,7 @@ public class CategoriaController {
             else
                 return new ResponseEntity<>("Categoria no existe", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear la categoria" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,16 +69,17 @@ public class CategoriaController {
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> eliminarCategoria(@PathVariable Integer id) {
         try {
             boolean respuesta = categoriaService.eliminarCategoria(id);
-            if (respuesta)
+            if (respuesta){
                 return new ResponseEntity<>("Categoria eliminada correctamente", HttpStatus.OK);
-            else
-                return new ResponseEntity<>("Categoria no existe", HttpStatus.BAD_REQUEST);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al eliminar la categoria" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

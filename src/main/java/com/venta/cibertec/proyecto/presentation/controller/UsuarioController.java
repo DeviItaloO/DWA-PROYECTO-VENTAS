@@ -55,7 +55,7 @@ public class UsuarioController {
                 return new ResponseEntity<>("Usuario no existe", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear el usuario" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

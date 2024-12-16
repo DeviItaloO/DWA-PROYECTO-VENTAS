@@ -34,9 +34,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioDTO obtenerUsuarioPorId(int id) {
-            Usuario usuario = usuarioRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-            return modelMapper.map(usuario, UsuarioDTO.class);
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        return modelMapper.map(usuario, UsuarioDTO.class);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public boolean actualizarUsuario(int id, UsuarioDTO usuarioDTO) {
-            Usuario usuario = usuarioRepository.findById(id)
-                    .orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
-            modelMapper.map(usuarioDTO, usuario);
-            usuarioRepository.save(usuario);
-            return true;
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
+        modelMapper.map(usuarioDTO, usuario);
+        usuarioRepository.save(usuario);
+        return true;
     }
 
     @Override

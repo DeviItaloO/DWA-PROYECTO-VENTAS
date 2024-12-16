@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/productos")
@@ -21,7 +23,7 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<ProductoDTO>> listarProductos() {
         try {
             List<ProductoDTO> productos = productoService.listarProductos();
@@ -31,59 +33,78 @@ public class ProductoController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductoDTO> obtenerProductoPorId(@PathVariable Integer id) {
+    @GetMapping("/search/{id}")
+    public ResponseEntity<?> obtenerProductoPorId(@PathVariable Integer id) {
         try {
             ProductoDTO producto = productoService.obtenerProductoPorId(id);
             if(producto != null) {
                 return new ResponseEntity<>(producto, HttpStatus.OK);
             }else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Producto no encontrado");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Server: Error: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping
-    public ResponseEntity<String> crearProducto(@RequestBody ProductoDTO productoDTO) {
+    @PostMapping("/create")
+    public ResponseEntity<?> crearProducto(@RequestBody ProductoDTO productoDTO) {
         try {
             boolean respuesta = productoService.crearProducto(productoDTO);
+            Map<String, String> response = new HashMap<>();
             if(respuesta) {
-                return new ResponseEntity<>("Producto creado correctamente", HttpStatus.CREATED);
+                response.put("message", "Producto creado correctamente");
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
             }else{
-                return new ResponseEntity<>("Producto no existe", HttpStatus.INTERNAL_SERVER_ERROR);
+                response.put("message", "Producto no creado");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear el producto" + e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Server: Error: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> actualizarProducto(@PathVariable Integer id, @RequestBody ProductoDTO productoDTO) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> actualizarProducto(@PathVariable Integer id, @RequestBody ProductoDTO productoDTO) {
         try {
             boolean respuesta = productoService.actualizarProducto(id, productoDTO);
+            Map<String, String> response = new HashMap<>();
             if(respuesta) {
-                return new ResponseEntity<>("Producto actualizado correctamente", HttpStatus.OK);
+                response.put("message", "Producto actualizado correctamente");
+                return new ResponseEntity<>(response, HttpStatus.OK);
             }else{
-                return new ResponseEntity<>("Producto no existe", HttpStatus.BAD_REQUEST);
+                response.put("message", "Producto no encontrado");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Server: Error: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> eliminarProducto(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> eliminarProducto(@PathVariable Integer id) {
         try {
             boolean respuesta = productoService.eliminarProducto(id);
-            if(respuesta) {
-                return new ResponseEntity<>("Producto eliminado correctamente", HttpStatus.OK);
+            Map<String, String> response = new HashMap<>();
+            if (respuesta) {
+                response.put("message", "Producto eliminado correctamente");
+                return new ResponseEntity<>(response, HttpStatus.OK);
             }else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                response.put("message", "Producto no encontrado");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Server: Error: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
