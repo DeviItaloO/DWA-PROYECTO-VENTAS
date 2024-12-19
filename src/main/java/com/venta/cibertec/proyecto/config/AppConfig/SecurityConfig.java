@@ -1,5 +1,6 @@
 package com.venta.cibertec.proyecto.config.AppConfig;
 
+import com.venta.cibertec.proyecto.data.entity.Usuario;
 import com.venta.cibertec.proyecto.service.interfaces.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,10 +30,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/auth/login").permitAll()//.hasAnyRole("ADMIN")
-                        .requestMatchers("/api/usuarios/**").permitAll()
-                        .requestMatchers("/api/productos/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/usuarios/**").authenticated()
+                        .requestMatchers("/api/productos/**").authenticated()
+                        //.requestMatchers("/api/**").permitAll()
                         //.anyRequest().permitAll()
                         .anyRequest().authenticated()
                 )
@@ -45,15 +47,4 @@ public class SecurityConfig {
         //return new BCryptPasswordEncoder();
         return NoOpPasswordEncoder.getInstance();
     }
-
-    /*@Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-
-        UserDetails user = User.withUsername("admin")
-                .password(passwordEncoder.encode("password"))
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }*/
 }
