@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 @Configuration
 public class ConexionesConfig {
-
+/*
     @Value("${DB_VENTAS_URL}")
     private String dbVentasUrl;
     @Value("${DB_VENTAS_USER}")
@@ -38,5 +38,5 @@ public class ConexionesConfig {
     @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
-    }
+    }*/
 }
