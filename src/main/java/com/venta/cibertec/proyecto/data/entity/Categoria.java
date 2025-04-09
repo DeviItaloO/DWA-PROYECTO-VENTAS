@@ -19,6 +19,8 @@ public class Categoria {
     @Column(nullable = false, length = 50)
     private String nombre;
 
+    //Yamir
+
     @Column(nullable = false, length = 500)
     private String descripcion;
 
