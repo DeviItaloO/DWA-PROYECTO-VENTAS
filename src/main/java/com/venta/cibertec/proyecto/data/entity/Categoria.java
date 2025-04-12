@@ -30,3 +30,4 @@ public class Categoria {
         this.fechaCreacion = LocalDateTime.now();
     }
 }
+//clase categoria
