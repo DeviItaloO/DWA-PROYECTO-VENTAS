@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrdenCreateDTO {
 
-    private Integer id;
+    private int id;
     private String numero;
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaRecivida;

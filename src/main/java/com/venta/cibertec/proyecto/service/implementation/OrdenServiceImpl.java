@@ -23,17 +23,27 @@ public class OrdenServiceImpl implements OrdenService {
     }
 
     @Override
-    public List<OrdenDTO> getAll() {
+    public List<OrdenDTO> listarOrdenes() {
         return List.of();
     }
 
     @Override
-    public OrdenDTO createOrden() {
+    public OrdenDTO obtenerOrdenPorId(int id) {
         return null;
     }
 
     @Override
-    public String delete(int id) {
-        return "";
+    public boolean crearOrden(OrdenDTO ordenDTO)  {
+        return false;
+    }
+
+    @Override
+    public boolean actualizarOrden(int id, OrdenDTO ordenDTO) {
+        return false;
+    }
+
+    @Override
+    public boolean eliminarOrden(int id) {
+        return false;
     }
 }
