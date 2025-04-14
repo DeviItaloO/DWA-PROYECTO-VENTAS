@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface DetalleOrdenService {
 
-    List<DetalleOrdenDTO> getAllByOrden(int idOrden);
+    List<DetalleOrdenDTO> listarPorOrden(int idOrden);
+    DetalleOrdenDTO obtenerDetallePorId(int id);
+    boolean crearDetalleOrden(DetalleOrdenDTO detalleDTO);
+    boolean actualizarDetalleOrden(int id, DetalleOrdenDTO detalleDTO);
+    boolean eliminarDetalleOrden(int id);
 }

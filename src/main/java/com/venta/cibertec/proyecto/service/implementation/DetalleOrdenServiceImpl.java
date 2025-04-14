@@ -24,7 +24,28 @@ public class DetalleOrdenServiceImpl implements DetalleOrdenService {
     }
 
     @Override
-    public List<DetalleOrdenDTO> getAllByOrden(int idOrden) {
+    public List<DetalleOrdenDTO> listarPorOrden(int idOrden) {
         return List.of();
+    }
+
+    @Override
+    public DetalleOrdenDTO obtenerDetallePorId(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean crearDetalleOrden(DetalleOrdenDTO detalleDTO) {
+        return false;
+
+    }
+
+    @Override
+    public boolean actualizarDetalleOrden(int id, DetalleOrdenDTO detalleDTO) {
+        return false;
+    }
+
+    @Override
+    public boolean eliminarDetalleOrden(int id) {
+        return false;
     }
 }
